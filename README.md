@@ -2,7 +2,7 @@
 
 
 # Release
-* [2013-12-28]：Model and inference released.  
+* [2013-12-28]：Model and inference code released.  
 
 
 
