@@ -18,8 +18,6 @@ Then run the cmd: <br>
 
 **`sh eval/eval_mme.sh`**
 
-# MME Benchmark
-PureMM achieved xxx points, which was topx on MME benchmark at 2023-12-29.
 
 
 # Acknowledgments
