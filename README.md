@@ -1,4 +1,4 @@
-# QQMM
+# PureMM
 
 
 # Release
