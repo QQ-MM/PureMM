@@ -1,1 +1,1 @@
-from .language_model.QQMM_llama import QQMMLlamaForCausalLM, QQMMConfig
+from .language_model.PureMM_llama import PureMMLlamaForCausalLM, PureMMConfig

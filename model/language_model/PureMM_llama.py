@@ -24,26 +24,26 @@ from transformers import AutoConfig, AutoModelForCausalLM, \
 
 from transformers.modeling_outputs import CausalLMOutputWithPast
 
-from ..QQMM_arch import QQMMMetaModel, QQMMMetaForCausalLM
+from ..PureMM_arch import PureMMMetaModel, PureMMMetaForCausalLM
 
 
-class QQMMConfig(LlamaConfig):
-    model_type = "QQMM"
+class PureMMConfig(LlamaConfig):
+    model_type = "PureMM"
 
 
-class QQMMLlamaModel(QQMMMetaModel, LlamaModel):
-    config_class = QQMMConfig
+class PureMMLlamaModel(PureMMMetaModel, LlamaModel):
+    config_class = PureMMConfig
 
     def __init__(self, config: LlamaConfig):
-        super(QQMMLlamaModel, self).__init__(config)
+        super(PureMMLlamaModel, self).__init__(config)
 
 
-class QQMMLlamaForCausalLM(LlamaForCausalLM, QQMMMetaForCausalLM):
-    config_class = QQMMConfig
+class PureMMLlamaForCausalLM(LlamaForCausalLM, PureMMMetaForCausalLM):
+    config_class = PureMMConfig
 
     def __init__(self, config):
         super(LlamaForCausalLM, self).__init__(config)
-        self.model = QQMMLlamaModel(config)
+        self.model = PureMMLlamaModel(config)
 
         self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
 
@@ -136,5 +136,5 @@ class QQMMLlamaForCausalLM(LlamaForCausalLM, QQMMMetaForCausalLM):
         )
         return model_inputs
 
-AutoConfig.register("QQMM", QQMMConfig)
-AutoModelForCausalLM.register(QQMMConfig, QQMMLlamaForCausalLM)
+AutoConfig.register("PureMM", PureMMConfig)
+AutoModelForCausalLM.register(PureMMConfig, PureMMLlamaForCausalLM)

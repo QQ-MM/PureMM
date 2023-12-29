@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 base_model_path=../model/vicuna-13b-v1.5
-model_path=../model/QQMM_v1.0
+model_path=../model/PureMM_v1.0
 conv_mode=vicuna_v1
 
 # 生成结果
 question_path=../mme_bench/format_mme_bench_v1.2.json
-answers_dir=../mme_bench/answers/QQMM
+answers_dir=../mme_bench/answers/PureMM
 
 python -m .model_vqa \
         --model-base ${base_model_path} \

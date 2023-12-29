@@ -61,8 +61,8 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         lora_cfg_pretrained = AutoConfig.from_pretrained(model_path)
 
         tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=False)
-        print('Loading QQMM from base model_zoo...')
-        model = QQMMLlamaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained,
+        print('Loading PureMM from base model_zoo...')
+        model = PureMMLlamaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained,
                                                       **kwargs)
         token_num, tokem_dim = model.lm_head.out_features, model.lm_head.in_features
         if model.lm_head.weight.shape[0] != token_num:
@@ -72,7 +72,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             model.model.embed_tokens.weight = torch.nn.Parameter(
                 torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
 
-        print('Loading additional QQMM weights...')
+        print('Loading additional PureMM weights...')
         if os.path.exists(os.path.join(model_path, 'non_lora_trainables.bin')):
             non_lora_trainables = torch.load(os.path.join(model_path, 'non_lora_trainables.bin'), map_location='cpu')
         non_lora_trainables = {(k[11:] if k.startswith('base_model.') else k): v for k, v in

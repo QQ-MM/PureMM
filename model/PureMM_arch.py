@@ -34,10 +34,10 @@ def rank0_print(rank, *args):
         print(*args)
 
 
-class QQMMMetaModel:
+class PureMMMetaModel:
 
     def __init__(self, config):
-        super(QQMMMetaModel, self).__init__(config)
+        super(PureMMMetaModel, self).__init__(config)
 
         if hasattr(config, "mm_vision_tower"):
             self.vision_tower = build_vision_tower(config, delay_load=True)
@@ -97,7 +97,7 @@ class QQMMMetaModel:
                 self.vision_tower.mlm_proj.load_state_dict(mfm_variables)
 
 
-class QQMMMetaForCausalLM(ABC):
+class PureMMMetaForCausalLM(ABC):
 
     @abstractmethod
     def get_model(self):
