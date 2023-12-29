@@ -8,7 +8,7 @@
 # Preparation
 * Because PureMM uses lora tuning the LLM. Before evaluation, you should download the base LLM model:<br>
 [vicuna-13b-v1.5](https://huggingface.co/lmsys/vicuna-13b-v1.5) <br>
-* QQMM uses visual encoder. Please download from<br>
+* PureMM uses visual encoder. Please download from<br>
 [openai/clip-vit-large-patch14-336](https://huggingface.co/openai/clip-vit-large-patch14-336)
 
 
