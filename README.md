@@ -21,7 +21,7 @@ Then run the cmd: <br>
 # MME Benchmark
 PureMM achieved 1647.8 points, which was top4 on MME benchmark at 2023-12-31. <br>
 
-![mme](https://github.com/Q-MM/PureMM/tree/main/assets/mme-20231231.png)
+![image](https://github.com/Q-MM/PureMM/blob/main/assets/mme-20231231.png)
 
 
 # Acknowledgments
