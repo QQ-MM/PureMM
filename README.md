@@ -18,11 +18,6 @@ Then run the cmd: <br>
 
 **`sh eval/eval_mme.sh`**
 
-# MME Benchmark
-PureMM achieved 1647.8 points, which was top4 on MME benchmark at 2023-12-31. <br>
-
-![image](https://github.com/Q-MM/PureMM/blob/main/assets/mme-20231231.png)
-
 
 # Acknowledgments
 * [LLaVA](https://github.com/haotian-liu/LLaVA): the codebase we built upon. Thanks for their wonderful work.
