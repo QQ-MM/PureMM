@@ -11,6 +11,9 @@
 * PureMM uses visual encoder. Please download from<br>
 [openai/clip-vit-large-patch14-336](https://huggingface.co/openai/clip-vit-large-patch14-336)
 
+* The latest version of model weight should download from huggingface:
+https://huggingface.co/Q-MM/PureMM/tree/main
+
 
 # Evaluation
 Before evaluation, please download the MME benchmark files [MME](https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models/tree/Evaluation) into the mme_bench directory. <br>
