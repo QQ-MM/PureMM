@@ -77,8 +77,8 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             non_lora_trainables = torch.load(os.path.join(model_path, 'non_lora_trainables.bin'), map_location='cpu')
         non_lora_trainables = {(k[11:] if k.startswith('base_model.') else k): v for k, v in
                                non_lora_trainables.items()}
-        if any(k.startswith('model_zoo.model_zoo.') for k in non_lora_trainables):
-            non_lora_trainables = {(k[6:] if k.startswith('model_zoo.') else k): v for k, v in non_lora_trainables.items()}
+        if any(k.startswith('model.model.') for k in non_lora_trainables):
+            non_lora_trainables = {(k[6:] if k.startswith('model.') else k): v for k, v in non_lora_trainables.items()}
         incompatible_keys = model.load_state_dict(non_lora_trainables, strict=False)
         # print("non_lora_trainables incompatible_keys: ", incompatible_keys)
 
