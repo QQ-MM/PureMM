@@ -21,6 +21,12 @@ Then run the cmd: <br>
 
 **`sh eval/eval_mme.sh`**
 
+# MME benchmark
+PureMM achieved 1686.52 points on perception score, which was top1 on MME benchmark on 2024-01-21. <br>
+
+<img width="897" alt="企业微信截图_262e4ae1-bfa3-43f5-bcf6-f9abcbf2d533" src="https://github.com/Q-MM/PureMM/assets/14832463/3a1cca00-5365-4242-8352-2b6a49c32ed9">
+
+
 
 # Acknowledgments
 * [LLaVA](https://github.com/haotian-liu/LLaVA): the codebase we built upon. Thanks for their wonderful work.
