@@ -2,7 +2,8 @@
 
 
 # Release
-* [2013-12-28]：Model and inference code released.  
+* [2024-01-17]：v1.2 model weight released.  
+* [2023-12-28]：Model and inference code released.  
 
 
 # Preparation
