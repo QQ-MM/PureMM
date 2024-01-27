@@ -2,6 +2,7 @@
 
 
 # Release
+* [2024-01-26]：v1.3 model weight released.  
 * [2024-01-17]：v1.2 model weight released.  
 * [2023-12-28]：Model and inference code released.  
 
