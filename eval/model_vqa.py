@@ -98,7 +98,10 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         model = model.merge_and_unload()
         # print(f'model_zoo after merge with lora: {model_zoo}')
         print('Model is loaded...')
-
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
+        model = PureMMLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+    
     vision_tower = model.get_vision_tower()
     print(f'vision_tower.is_loaded: {vision_tower.is_loaded}')
     if not vision_tower.is_loaded:
