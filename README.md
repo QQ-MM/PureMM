@@ -6,6 +6,8 @@
 * [2024-01-17]：v1.2 model weight released.  
 * [2023-12-28]：Model and inference code released.  
 
+# Install
+** pip install -e . **
 
 # Preparation
 * The latest version of model weight should download from huggingface:
