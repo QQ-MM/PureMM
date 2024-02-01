@@ -12,7 +12,7 @@ import math
 import logging
 import warnings
 from transformers import AutoTokenizer, AutoConfig, BitsAndBytesConfig
-from ..model import *
+from model import *
 
 
 IMAGE_TOKEN_INDEX = -200
@@ -54,54 +54,9 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
     else:
         kwargs['torch_dtype'] = torch.float16
 
-    if 'lora' in model_name.lower() and model_base is None:
-        warnings.warn(
-            'There is `lora` in model_zoo name but no `model_base` is provided. ')
-    if 'lora' in model_name.lower() and model_base is not None:
-        lora_cfg_pretrained = AutoConfig.from_pretrained(model_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
+    model = PureMMLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
 
-        tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=False)
-        print('Loading PureMM from base model_zoo...')
-        model = PureMMLlamaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained,
-                                                      **kwargs)
-        token_num, tokem_dim = model.lm_head.out_features, model.lm_head.in_features
-        if model.lm_head.weight.shape[0] != token_num:
-            print(f'model_zoo.lm_head.weight.shape[0]: {model.lm_head.weight.shape[0]}; token_num: {token_num}')
-            model.lm_head.weight = torch.nn.Parameter(
-                torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
-            model.model.embed_tokens.weight = torch.nn.Parameter(
-                torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
-
-        print('Loading additional PureMM weights...')
-        if os.path.exists(os.path.join(model_path, 'non_lora_trainables.bin')):
-            non_lora_trainables = torch.load(os.path.join(model_path, 'non_lora_trainables.bin'), map_location='cpu')
-        non_lora_trainables = {(k[11:] if k.startswith('base_model.') else k): v for k, v in
-                               non_lora_trainables.items()}
-        if any(k.startswith('model.model.') for k in non_lora_trainables):
-            non_lora_trainables = {(k[6:] if k.startswith('model.') else k): v for k, v in non_lora_trainables.items()}
-        incompatible_keys = model.load_state_dict(non_lora_trainables, strict=False)
-        # print("non_lora_trainables incompatible_keys: ", incompatible_keys)
-
-        # vision_tower 在lora载入之前load，验证visual encoder lora训练效果
-        vision_tower = model.get_vision_tower()
-        print(f'vision_tower.is_loaded: {vision_tower.is_loaded}')
-        if not vision_tower.is_loaded:
-            vision_tower.load_model()
-            print(f'vision_tower loaded!!!!')
-
-        # print(f'model_zoo: {model_zoo}')
-        from peft import PeftModel
-        print('Loading LoRA weights...')
-        model = PeftModel.from_pretrained(model, model_path)
-        # print(f'model_zoo after get lora: {model_zoo}')
-        print('Merging LoRA weights...')
-        model = model.merge_and_unload()
-        # print(f'model_zoo after merge with lora: {model_zoo}')
-        print('Model is loaded...')
-    else:
-        tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-        model = PureMMLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
-    
     vision_tower = model.get_vision_tower()
     print(f'vision_tower.is_loaded: {vision_tower.is_loaded}')
     if not vision_tower.is_loaded:
