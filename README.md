@@ -1,5 +1,5 @@
 # PureMM
-
+PureMM is developed by TencentQQ Multimedia Research Team.
 
 # Release
 * [2024-01-26]：v1.3 model weight released.  
